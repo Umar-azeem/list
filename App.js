@@ -1,0 +1,75 @@
+import React, { useState } from "react";
+import DataList from "./data/DataList.jsx";
+
+function App() {
+  const [data, setData] = useState("");
+  const [savedata, setSavedata] = useState([]);
+  const [eidtdata, seteidtData] = useState(-1);
+   const [updatedata, setupdatedata] = useState([]);
+  const _ = ''
+  const handleData = (e) => {
+    setData(e.target.value);
+  };
+
+  const handleSaveData = () => {
+    if (data) {
+      setSavedata([...savedata, data]);
+      setData("");
+    }
+  };
+
+  const deleteData = (key) => {
+  const deleteArray =savedata.filter((_item, index) => index !== key)
+  setSavedata(deleteArray)  
+  }
+   const handleupdate = () =>{
+    const updatedataArray = savedata.map((v,i) => {
+      if (i === eidtdata){
+        v = updatedata
+        return v
+      }
+        return v
+    }
+   )};
+
+
+  return (
+    <>
+      <div className="flex justify-center">
+        <div className="container flex flex-col text-white w-fit h-screen bg-gray-900 p-4 rounded-lg">
+          <h1 className="text-indigo-600 w-40 font-semibold">Todo List</h1>
+          <div className="mt-5">
+            <input
+              value={data}
+              onChange={handleData}
+              type="text"
+              className="bg-gray-800 text-sm rounded-md w-[615px] h-10 p-4"
+              placeholder="Enter a task"
+            />
+            <button
+              onClick={handleSaveData}
+              className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red bg-indigo-800 hover:text-white hover:bg-red"
+            >
+              Add
+            </button>
+          </div>
+          <div>
+            <p className="text-gray-500 mb-2 font-semibold">List data</p>
+            <div>
+              <DataList 
+              data={savedata} 
+              deleteData={deleteData}
+              eidtdata ={eidtdata}
+              seteidtData ={seteidtData}
+              updatedata ={updatedata}
+              setupdatedata ={setupdatedata}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default App;
